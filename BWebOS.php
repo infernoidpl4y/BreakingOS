@@ -18,8 +18,11 @@
   const OS_PROGRAMS_DIR=OS_SYSTEM_DIR."programs/";
   const OS_VIDEOS_DIR=OS_SYSTEM_DIR."videos/";
   
-  //UTILS CONST
+  //UTILS VARS
   const OS_REDIRECT_HOME="<script>window.location='/BWebOS.php'</script>";
+  if(isset($_SESSION['username'])){
+    $OS_USER_DIR=OS_USERS_DIR.$_SESSION['username'];
+  }
 
   if(!isset($_SESSION['username'])){
     require_once(OS_TEMPLATES_DIR."login.php");
