@@ -5,10 +5,122 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BreakCode - BreakingOS</title>
   <link rel="stylesheet" href="css/editor.css">
-  <link rel="stylesheet" href="css/terminal.css">
 </head>
 <body>
   <div class="app-container">
+    <!-- Menu Bar -->
+    <nav class="menu-bar" id="menu-bar">
+      <div class="menu-item" data-menu="file">
+        <span>File</span>
+        <div class="menu-dropdown">
+          <div class="menu-option" onclick="newFile()">
+            <span>New File</span>
+            <span class="menu-key">Ctrl+N</span>
+          </div>
+          <div class="menu-option" onclick="openFileDialog()">
+            <span>Open File</span>
+            <span class="menu-key">Ctrl+O</span>
+          </div>
+          <div class="menu-option" onclick="saveFile()">
+            <span>Save</span>
+            <span class="menu-key">Ctrl+S</span>
+          </div>
+          <div class="menu-option" onclick="saveFileAs()">
+            <span>Save As...</span>
+            <span class="menu-key">Ctrl+Shift+S</span>
+          </div>
+          <div class="menu-divider"></div>
+          <div class="menu-option" onclick="createFolderDialog()">
+            <span>New Folder</span>
+          </div>
+          <div class="menu-divider"></div>
+          <div class="menu-option" onclick="closeFile()">
+            <span>Close File</span>
+            <span class="menu-key">Ctrl+W</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-item" data-menu="edit">
+        <span>Edit</span>
+        <div class="menu-dropdown">
+          <div class="menu-option" onclick="undo()">
+            <span>Undo</span>
+            <span class="menu-key">Ctrl+Z</span>
+          </div>
+          <div class="menu-option" onclick="redo()">
+            <span>Redo</span>
+            <span class="menu-key">Ctrl+Y</span>
+          </div>
+          <div class="menu-divider"></div>
+          <div class="menu-option" onclick="find()">
+            <span>Find</span>
+            <span class="menu-key">Ctrl+F</span>
+          </div>
+          <div class="menu-option" onclick="replace()">
+            <span>Replace</span>
+            <span class="menu-key">Ctrl+H</span>
+          </div>
+          <div class="menu-divider"></div>
+          <div class="menu-option" onclick="cutLine()">
+            <span>Cut Line</span>
+            <span class="menu-key">Ctrl+X</span>
+          </div>
+          <div class="menu-option" onclick="copyLine()">
+            <span>Copy Line</span>
+            <span class="menu-key">Ctrl+C</span>
+          </div>
+          <div class="menu-option" onclick="paste()">
+            <span>Paste</span>
+            <span class="menu-key">Ctrl+V</span>
+          </div>
+          <div class="menu-option" onclick="deleteLine()">
+            <span>Delete Line</span>
+            <span class="menu-key">Ctrl+Shift+K</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-item" data-menu="view">
+        <span>View</span>
+        <div class="menu-dropdown">
+          <div class="menu-option" onclick="toggleSidebar()">
+            <span>Toggle Sidebar</span>
+            <span class="menu-key">Ctrl+B</span>
+          </div>
+          <div class="menu-option" onclick="toggleMinimap()">
+            <span>Toggle Minimap</span>
+          </div>
+          <div class="menu-option" onclick="zoomIn()">
+            <span>Zoom In</span>
+            <span class="menu-key">Ctrl++</span>
+          </div>
+          <div class="menu-option" onclick="zoomOut()">
+            <span>Zoom Out</span>
+            <span class="menu-key">Ctrl+-</span>
+          </div>
+          <div class="menu-option" onclick="resetZoom()">
+            <span>Reset Zoom</span>
+            <span class="menu-key">Ctrl+0</span>
+          </div>
+          <div class="menu-divider"></div>
+          <div class="menu-option" onclick="goToLine()">
+            <span>Go to Line</span>
+            <span class="menu-key">Ctrl+G</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-item" data-menu="help">
+        <span>Help</span>
+        <div class="menu-dropdown">
+          <div class="menu-option" onclick="showAbout()">
+            <span>About BreakCode</span>
+          </div>
+          <div class="menu-option" onclick="showShortcuts()">
+            <span>Keyboard Shortcuts</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-icons">
@@ -18,18 +130,13 @@
         <button class="sidebar-btn" data-view="search" title="Search">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
         </button>
-        <button class="sidebar-btn" data-view="plugins" title="Plugins">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
-        </button>
-        <button class="sidebar-btn" data-view="settings" title="Settings">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-        </button>
       </div>
       <div class="sidebar-content">
         <!-- Files Panel -->
         <div class="sidebar-panel active" id="files-panel">
           <div class="panel-header">
             <span>EXPLORER</span>
+            <button class="panel-action" onclick="openFileDialog()" title="New File">+</button>
           </div>
           <div class="file-tree" id="file-tree">
             <div class="folder-item expanded" data-path=".">
@@ -45,44 +152,9 @@
             <span>SEARCH</span>
           </div>
           <div class="search-box">
-            <input type="text" id="search-input" placeholder="Search files...">
+            <input type="text" id="search-input" placeholder="Search in files...">
           </div>
           <div class="search-results" id="search-results"></div>
-        </div>
-        <!-- Plugins Panel -->
-        <div class="sidebar-panel" id="plugins-panel">
-          <div class="panel-header">
-            <span>PLUGINS</span>
-          </div>
-          <div class="plugins-list" id="plugins-list"></div>
-        </div>
-        <!-- Settings Panel -->
-        <div class="sidebar-panel" id="settings-panel">
-          <div class="panel-header">
-            <span>SETTINGS</span>
-          </div>
-          <div class="settings-content">
-            <div class="setting-item">
-              <label>Theme</label>
-              <select id="theme-select">
-                <option value="dark">Dark (Default)</option>
-                <option value="light">Light</option>
-                <option value="custom">Custom</option>
-              </select>
-            </div>
-            <div class="setting-item">
-              <label>Font Size</label>
-              <input type="number" id="font-size" value="14" min="10" max="24">
-            </div>
-            <div class="setting-item">
-              <label>Terminal Font</label>
-              <select id="terminal-font">
-                <option value="monospace">Monospace</option>
-                <option value="Fira Code">Fira Code</option>
-                <option value="JetBrains Mono">JetBrains Mono</option>
-              </select>
-            </div>
-          </div>
         </div>
       </div>
     </aside>
@@ -99,36 +171,104 @@
         <div class="editor-container" id="editor-container">
           <div class="line-numbers" id="line-numbers"></div>
           <textarea class="code-editor" id="code-editor" spellcheck="false"></textarea>
+          <div class="minimap" id="minimap"></div>
         </div>
         <div class="status-bar" id="status-bar">
           <span class="status-item" id="cursor-position">Ln 1, Col 1</span>
           <span class="status-item" id="file-type">Plain Text</span>
           <span class="status-item" id="encoding">UTF-8</span>
+          <span class="status-item" id="eol">LF</span>
         </div>
-      </div>
-
-      <!-- Terminal Panel -->
-      <div class="terminal-panel" id="terminal-panel">
-        <div class="terminal-header">
-          <div class="terminal-tabs">
-            <button class="terminal-tab active">Terminal 1</button>
-          </div>
-          <div class="terminal-actions">
-            <button class="terminal-btn" onclick="addTerminal()" title="New Terminal">+</button>
-            <button class="terminal-btn" onclick="toggleTerminalSize()" title="Toggle Size">⤢</button>
-            <button class="terminal-btn" onclick="toggleTerminal()" title="Toggle Terminal">▼</button>
-          </div>
-        </div>
-        <div class="terminal-content" id="terminal-content"></div>
       </div>
     </main>
   </div>
 
+  <!-- Find/Replace Dialog -->
+  <div class="dialog-overlay" id="find-dialog" style="display:none;">
+    <div class="dialog">
+      <div class="dialog-header">
+        <span>Find and Replace</span>
+        <button class="dialog-close" onclick="closeFindDialog()">×</button>
+      </div>
+      <div class="dialog-content">
+        <input type="text" id="find-input" placeholder="Find...">
+        <input type="text" id="replace-input" placeholder="Replace...">
+        <div class="dialog-buttons">
+          <button onclick="findNext()">Find Next</button>
+          <button onclick="replaceOne()">Replace</button>
+          <button onclick="replaceAll()">Replace All</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Go to Line Dialog -->
+  <div class="dialog-overlay" id="goto-dialog" style="display:none;">
+    <div class="dialog">
+      <div class="dialog-header">
+        <span>Go to Line</span>
+        <button class="dialog-close" onclick="closeGotoDialog()">×</button>
+      </div>
+      <div class="dialog-content">
+        <input type="number" id="goto-input" placeholder="Line number">
+        <div class="dialog-buttons">
+          <button onclick="goToLineNumber()">Go</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Dialog -->
+  <div class="dialog-overlay" id="about-dialog" style="display:none;">
+    <div class="dialog">
+      <div class="dialog-header">
+        <span>About BreakCode</span>
+        <button class="dialog-close" onclick="closeAboutDialog()">×</button>
+      </div>
+      <div class="dialog-content about-content">
+        <h2>BreakCode</h2>
+        <p>Version 1.0.0</p>
+        <p>A powerful code editor for BreakingOS</p>
+        <p>Features: Syntax highlighting, Multiple tabs, File explorer, Search & Replace</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- File Dialog -->
+  <div class="dialog-overlay" id="file-dialog" style="display:none;">
+    <div class="dialog">
+      <div class="dialog-header">
+        <span>New File</span>
+        <button class="dialog-close" onclick="closeFileDialog()">×</button>
+      </div>
+      <div class="dialog-content">
+        <input type="text" id="new-file-input" placeholder="Filename (e.g., example.php)">
+        <div class="dialog-buttons">
+          <button onclick="createNewFileConfirm()">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Folder Dialog -->
+  <div class="dialog-overlay" id="folder-dialog" style="display:none;">
+    <div class="dialog">
+      <div class="dialog-header">
+        <span>New Folder</span>
+        <button class="dialog-close" onclick="closeFolderDialog()">×</button>
+      </div>
+      <div class="dialog-content">
+        <input type="text" id="new-folder-input" placeholder="Folder name">
+        <div class="dialog-buttons">
+          <button onclick="createNewFolderConfirm()">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="js/syntax.js"></script>
-  <script src="js/terminal.js"></script>
   <script src="js/editor.js"></script>
   <script src="js/files.js"></script>
-  <script src="js/plugins.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

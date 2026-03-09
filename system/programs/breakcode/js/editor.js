@@ -24,10 +24,39 @@ class CodeEditor {
   onInput() {
     this.updateLineNumbers();
     this.updateCursorPosition();
+    this.updateMinimap();
     
     // Mark as unsaved
     if (this.currentFile) {
       this.unsavedChanges.set(this.currentFile, true);
+      // Notify app to update tab
+      if (window.app) {
+        window.app.markUnsaved(this.currentFile);
+      }
+    }
+  }
+  
+  updateMinimap() {
+    const minimap = document.getElementById('minimap');
+    if (!minimap) return;
+    
+    let content = minimap.querySelector('.minimap-content');
+    if (!content) {
+      content = document.createElement('div');
+      content.className = 'minimap-content';
+      minimap.appendChild(content);
+    }
+    
+    content.textContent = this.editor.value || ' ';
+    
+    // Update cursor position in minimap
+    const cursor = minimap.querySelector('.minimap-cursor');
+    if (cursor) {
+      const lines = this.editor.value.substring(0, this.editor.selectionStart).split('\n');
+      const lineNum = lines.length - 1;
+      cursor.style.top = (lineNum * 1.5) + 'em';
+    }
+  }
       this.updateTabTitle(this.currentFile);
     }
   }

@@ -1,0 +1,7 @@
+{
+  "name": "DynamicWebShell",
+  "description": "HyperTerminal Pro - Advanced terminal emulator",
+  "icon": "terminal.png",
+  "type": "php",
+  "entry": "index.php"
+}
