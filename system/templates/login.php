@@ -34,7 +34,7 @@
         if($user==$_POST['username'] and $userfile['password']==$_POST['password']){
           $_SESSION['username']=$user;
           $_SESSION['user']=$userfile['name'];
-          header("Location: BWebOS.php");
+          header("Location: /");
           exit;
         }
       }
@@ -61,9 +61,9 @@
     <?php
       if(isset($LOGIN_STATE)) echo '<p class="error-msg">' . htmlspecialchars($LOGIN_STATE) . '</p>';
       if(isset($_GET['r']) and $_GET['r']=="register"){
-        echo "<a href='/BWebOS.php' class='ivc'><i>I have a account</i></a>";
+        echo "<a href='/' class='ivc'><i>I have a account</i></a>";
       }else{
-        echo "<a href='/BWebOS.php?r=register' class='ivc'><i>I don't have a account</i></a>";
+        echo "<a href='/?r=register' class='ivc'><i>I don't have a account</i></a>";
       }
     ?>
   </div>

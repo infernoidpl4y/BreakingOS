@@ -3,7 +3,7 @@
   if(isset($_POST['command'])){
     if($_POST['command']=="poweroff"){
       session_destroy();
-      header("Location: BWebOS.php");
+      header("Location: /");
       exit;
     }
   }

@@ -90,7 +90,7 @@ $desktopApps = getDesktopApps();
     </button>
     
     <div class="start-menu" id="startMenu">
-      <div class="start-menu-header">BWebOS</div>
+      <div class="start-menu-header">BreakingOS</div>
       <div class="start-menu-apps" id="startMenuApps">
         <?php foreach ($desktopApps as $app): ?>
           <div class="start-menu-app" onclick="openApp('<?= htmlspecialchars($app['name']) ?>', '<?= htmlspecialchars($app['info']['name']) ?>', '<?= htmlspecialchars($app['type']) ?>'); toggleStartMenu();">
