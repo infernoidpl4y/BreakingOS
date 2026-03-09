@@ -20,6 +20,7 @@
   
   //UTILS CONST
   const OS_REDIRECT_HOME="<script>window.location='/BWebOS.php'</script>";
+
   if(!isset($_SESSION['username'])){
     require_once(OS_TEMPLATES_DIR."login.php");
   }else{
