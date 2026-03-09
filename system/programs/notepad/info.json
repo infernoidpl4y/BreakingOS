@@ -1,0 +1,7 @@
+{
+  "name": "Notepad",
+  "description": "Simple text editor",
+  "icon": "notepad.png",
+  "type": "php",
+  "entry": "notepad.php"
+}

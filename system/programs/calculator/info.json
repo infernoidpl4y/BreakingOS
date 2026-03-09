@@ -1,0 +1,7 @@
+{
+  "name": "Calculator",
+  "description": "Basic calculator app",
+  "icon": "calc.png",
+  "type": "js",
+  "entry": "index.html"
+}

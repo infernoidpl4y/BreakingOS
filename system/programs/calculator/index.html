@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body{font-family:sans-serif;padding:10px;background:#2d2d2d;color:white}
+    .calc{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;max-width:200px}
+    .calc input{grid-column:span 4;padding:10px;font-size:18px;text-align:right}
+    .calc button{padding:15px;font-size:16px;cursor:pointer;background:#444;border:1px solid #666;border-radius:4px;color:white}
+    .calc button:hover{background:#555}
+    .calc button.equals{background:#ff5722}
+  </style>
+</head>
+<body>
+  <div class="calc">
+    <input type="text" id="display" readonly>
+    <button onclick="add('1')">1</button>
+    <button onclick="add('2')">2</button>
+    <button onclick="add('3')">3</button>
+    <button onclick="add('+')">+</button>
+    <button onclick="add('4')">4</button>
+    <button onclick="add('5')">5</button>
+    <button onclick="add('6')">6</button>
+    <button onclick="add('-')">-</button>
+    <button onclick="add('7')">7</button>
+    <button onclick="add('8')">8</button>
+    <button onclick="add('9')">9</button>
+    <button onclick="add('*')">*</button>
+    <button onclick="add('0')">0</button>
+    <button onclick="clearDisplay()">C</button>
+    <button onclick="calculate()" class="equals">=</button>
+    <button onclick="add('/')">/</button>
+  </div>
+  <script>
+    function add(val){document.getElementById('display').value+=val}
+    function clearDisplay(){document.getElementById('display').value=''}
+    function calculate(){try{document.getElementById('display').value=eval(document.getElementById('display').value)}catch{e}}</script>
+</body>
+</html>

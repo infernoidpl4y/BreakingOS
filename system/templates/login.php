@@ -17,9 +17,10 @@
         $password=$_POST['password'];
         $userpath=OS_USERS_DIR.$user;
         mkdir($userpath);
-        mkdir($userpath."/apps");
+        mkdir($userpath."/programs");
         file_put_contents($userpath."/desktop.json","{}");
-        file_put_contents($userpath."/userfile.json","{\"name\":\"$name\", \"password\":\"$password\"}");
+        file_put_contents($userpath."/userfile.json","{\"name\":\"$name\", \"username\":\"$user\", \"password\":\"$password\"}");
+        file_put_contents($userpath."/apps.desk","");
       }
     }
   }else{
@@ -33,7 +34,8 @@
         if($user==$_POST['username'] and $userfile['password']==$_POST['password']){
           $_SESSION['username']=$user;
           $_SESSION['user']=$userfile['name'];
-          header("BWebOS.php");
+          header("Location: BWebOS.php");
+          exit;
         }
       }
       if(!isset($_SESSION['username'])) $LOGIN_STATE="Incorrect credentials";
@@ -45,14 +47,14 @@
     <h1><?= $LOGIN_PAGE ?></h1>
     <form method="POST">
       <?php
-        if($LOGIN_PAGE=="Register") echo "<input type='text' name='name' placeholder='username...' class='eform'><br>";
+        if(isset($_GET['r']) and $_GET['r']=="register") echo '<input type="text" name="name" placeholder="Full name" class="name-input">';
       ?>
-      <input type="text" name="username" placeholder="user..." class="eform"><br>
-      <input type="password" name="password" placeholder="password..." class="eform"><br>
-      <input type="submit" value="SEND" class="bform">
+      <input type="text" name="username" placeholder="Username">
+      <input type="password" name="password" placeholder="Password">
+      <input type="submit" value="Send" class="bform">
     </form>
     <?php
-      if(isset($LOGIN_STATE)) echo "<span style='color: red'>$LOGIN_STATE</span><br>";
+      if(isset($LOGIN_STATE)) echo '<p class="error-msg">' . htmlspecialchars($LOGIN_STATE) . '</p>';
       if(isset($_GET['r']) and $_GET['r']=="register"){
         echo "<a href='/BWebOS.php' class='ivc'><i>I have a account</i></a>";
       }else{
@@ -61,3 +63,5 @@
     ?>
   </div>
 </div>
+</body>
+</html>
