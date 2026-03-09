@@ -45,11 +45,11 @@
     <h1><?= $LOGIN_PAGE ?></h1>
     <form method="POST">
       <?php
-        if($LOGIN_PAGE=="Register") echo "<input type='text' name='name' placeholder='username...'><br>";
+        if($LOGIN_PAGE=="Register") echo "<input type='text' name='name' placeholder='username...' class='eform'><br>";
       ?>
-      <input type="text" name="username" placeholder="user..."><br>
-      <input type="password" name="password" placeholder="password..."><br>
-      <input type="submit" value="SEND">
+      <input type="text" name="username" placeholder="user..." class="eform"><br>
+      <input type="password" name="password" placeholder="password..." class="eform"><br>
+      <input type="submit" value="SEND" class="bform">
     </form>
     <?php
       if(isset($LOGIN_STATE)) echo "<span style='color: red'>$LOGIN_STATE</span><br>";

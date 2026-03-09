@@ -5,8 +5,10 @@
       session_destroy();
       session_abort();
       header("BWebOS.php");
+      echo OS_REDIRECT_HOME;
     }
   }
+  //SYSTEM CONST
   const OS_SYSTEM_DIR="system/";
   const OS_USERS_DIR="users/";
   const OS_TEMPLATES_DIR=OS_SYSTEM_DIR."templates/";
@@ -15,6 +17,9 @@
   const OS_SCRIPTS_DIR=OS_SYSTEM_DIR."scripts/";
   const OS_PROGRAMS_DIR=OS_SYSTEM_DIR."programs/";
   const OS_VIDEOS_DIR=OS_SYSTEM_DIR."videos/";
+  
+  //UTILS CONST
+  const OS_REDIRECT_HOME="<script>window.location='/BWebOS.php'</script>";
   if(!isset($_SESSION['username'])){
     require_once(OS_TEMPLATES_DIR."login.php");
   }else{
